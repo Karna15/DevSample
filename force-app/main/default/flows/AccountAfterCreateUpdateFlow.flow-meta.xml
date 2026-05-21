@@ -7,6 +7,9 @@
         <locationY>0</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>check_priority_is_false</targetReference>
+        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>recipientAddresses</name>
@@ -61,6 +64,25 @@
                 <targetReference>Send_Mail</targetReference>
             </connector>
             <label>Yes, Priority</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_priority_is_false</name>
+        <label>check priority is false</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>false</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Priority__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>false</label>
         </rules>
     </decisions>
     <environments>Default</environments>
